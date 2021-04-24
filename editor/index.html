@@ -50,7 +50,31 @@
   });
 </script>
 <script>
+const  save = () =>{
+   console.log('saving')
+   var i = document.querySelectorAll('form input');
+   var dateObject = new Date;
+   var t = i[0].value, p=i[1].value, l=i[2].value,d=dateObject.getDate()+'-'+(dateObject.getMonth()+1)+'-'+dateObject.getFullYear();
+   document.querySelector('header h2').innerHTML = t
+   document.querySelector('header p').innerHTML = `By ${p} on ${d}, ${l} [<sp>${id()}</sp>]`
+   var noteObject ={
+     title:t,
+     preacher:p,
+     location:l,
+     date:d,
+     notes:document.querySelector('.contents').innerText
+   }
+   localStorage.setItem('note'+id(),JSON.stringify(noteObject))
+ }
+
 var iparam = location.search.substring(location.search.indexOf('=')+1)
+if(iparam.length >= 1){
+  var fp = JSON.parse(localStorage.getItem('note'+iparam))
+  var ff = document.querySelectorAll('form input');
+  ff[0].value = fp.title
+  ff[1].value = fp.preacher
+  ff[2].value = fp.location
+}
 var e = document.querySelector('.quill .editor #editor .ql-editor')
 
 function v(j){
@@ -59,28 +83,27 @@ function v(j){
      
      if(t && l && p){
          j.form.style.display='none';
-          //setInterval(save,1000)
+          setInterval(save,1000)
 
      }else{
         document.querySelector('form p').innerText='invalid inputs';
      }
 }
-const  save = () =>{
-   console.log('saving')
-   var i = document.querySelectorAll('form input');
-   var dateObject = new Date;
-   var t = i[0].value, p=i[1].value, l=i[2].value,d=dateObject.getDate()+'-'+(dateObject.getMonth()+1)+'-'+dateObject.getFullYear();
-   document.querySelector('header h2').innerHTML = t
-   document.querySelector('header p').innerHTML = `By ${p} on ${d}, ${l} [<sp>${3}</sp>]`
-   var noteObject ={
-     title:t,
-     preacher:p,
-     location:l,
-     date:d,
-     notes:document.querySelector('.contents').innerText
-   }
-   localStorage.setItem('note'+document.querySelector('sp').innerText,JSON.stringify(noteObject))
- }
+function id() {
+  if(document.querySelector('header p sp')!=null){
+    return document.querySelector('header p sp').innerText
+  }
+  var count = 1;
+  for (i = 1; i <= localStorage.length; i++) {
+    if (localStorage.getItem('note' + i)) {
+      count++
+    }
+  }
+  if(iparam.length > 0){
+    return iparam
+  }
+  return count
+}
 </script>
 </body>
 </html>
