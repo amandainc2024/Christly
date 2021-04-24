@@ -52,36 +52,31 @@ Pie chart of answered to unanswered prayers
  </div>
  
  <main>
-   <div class="note" style="--bg:#fef;--b:#f6f">
-     <h3>God is good and innovation center of building family</h3>
-     <p>By Robert Kardashian</p>
-     <p>25-07-2025 • Kawanda </p>
-   </div>
-   <div class="note" style="--bg:#eef;--b:#66f">
-     <h3>God is good and innovation center of building family</h3>
-     <p>By Robert Kardashian</p>
-     <p>25-07-2025 • Kawanda </p>
-   </div>
-
-   <div class="note" style="--bg:#fee;--b:#f66">
-     <h3>God is good and innovation center of building family</h3>
-     <p>By Robert Kardashian</p>
-     <p>25-07-2025 • Kawanda </p>
-   </div>
-
-   <div class="note" style="--bg:#ffe;--b:#ff6">
-     <h3>God is good and innovation center of building family</h3>
-     <p>By Robert Kardashian</p>
-     <p>25-07-2025 • Kawanda </p>
-   </div>
-
-   <div class="note" style="--bg:#efe;--b:#6f6">
-     <h3>God is good and innovation center of building family</h3>
-     <p>By Robert Kardashian</p>
-     <p>25-07-2025 • Kawanda </p>
-   </div>
    
  </main>
+ <script>
+   function read(){
+      
+      var container = document.querySelector('main')
+      container.innerHTML=''
+      for (i = 1; i <= localStorage.length; i++) {
+        if (localStorage.getItem('note' + i)) {
+          var noteObject = JSON.parse(localStorage.getItem('note' + i));
+      
+      noteObject = JSON.parse(localStorage.getItem('note' + i));
+          var template = ` <div class="note" style="--bg:#efe;--b:#6f6">
+     <h3>${noteObject.title}</h3>
+     <p>By ${noteObject.preacher}</p>
+     <p>${noteObject.date} • ${noteObject.location}</p>
+   </div>`;
+            
+        container.innerHTML+=template
+      
+      }
+     }
+    }
+    read()
+ </script>
 </body>
 
 </html>
