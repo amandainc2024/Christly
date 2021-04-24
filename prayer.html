@@ -167,7 +167,7 @@ border-radius: 577px;
       <p class="details">
       ${prayerObject.description}</p>
       <div class="prog">
-        <div class="thread-con"><div style="width:100% "class="thread">${prayerObject.answered}</div></div>
+        <div class="thread-con"><div style="width:100%;background:${a(prayerObject.answered)}"class="thread">${prayerObject.answered}</div></div>
         <button type="button" onclick="record(${prayerObject.id})">✅</button>
       </div>
       <p>Since ${prayerObject.date}</p>
@@ -180,6 +180,10 @@ border-radius: 577px;
      }
     }
     read()
+    function a(n){
+      if(n){return 'white'}
+      return 'blue'
+    }
     function record(id){
       var prayerObject = JSON.parse(localStorage.getItem('prayer'+id));
      var tbr = document.querySelector('.prayer'+id)
@@ -191,7 +195,7 @@ border-radius: 577px;
       <p class="details">
       ${prayerObject.description}</p>
       <div class="prog">
-        <div class="thread-con"><div style="width:100% "class="thread">${prayerObject.answered}</div></div>
+        <div class="thread-con"><div style="width:100%;background:${a(prayerObject.answered)}"class="thread">${prayerObject.answered}</div></div>
         <button type="button" onclick="record(${prayerObject.id})">✅</button>
       </div>      <p>Since ${prayerObject.date}</p>
 
@@ -233,7 +237,7 @@ border-radius: 577px;
       <p class="details">
       ${prayerObject.description}</p>
       <div class="prog">
-        <div class="thread-con"><div style="width:100% "class="thread">${prayerObject.answered}</div></div>
+        <div class="thread-con"><div style="width:100%;background:${a(prayerObject.answered)}"class="thread">${prayerObject.answered}</div></div>
         <button type="button" onclick="record(${prayerObject.id})">✅</button>
       </div><p>Since ${prayerObject.date}</p>`;
  document.querySelector('.ud button').click()
