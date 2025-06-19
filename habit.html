@@ -39,7 +39,7 @@ border-radius: 577px;
     }
     .prog .thread{
       background: #88f;
-      width: 85%;
+      width: 0%;
       text-align: center;
 height:20px;
 border-radius: 577px;
@@ -91,24 +91,36 @@ border-radius: 577px;
       }
       
       localStorage.setItem('habit'+id(),JSON.stringify(hbt))
+      read()
     }
     function read(){
       var container = document.querySelector('main')
+      container.innerHTML=''
       for (i = 1; i <= localStorage.length; i++) {
         if (localStorage.getItem('habit' + i)) {
           var habitObject = JSON.parse(localStorage.getItem('habit' + i));
-          var template = `<div class="habit">
+          var template = `<div class="habit habit${habitObject.id}">
       <h2>${habitObject.name}</h2>
       <p class="details"><span>Frequency: ${habitObject.frequency}</span><span>Period: ${habitObject.period}</span></p>
       <div class="prog">
         <div class="thread-con"><div class="thread">${habitObject.progress}</div></div>
-        <button type="button">+</button>
+        <button type="button" onclick="record(${habitObject.id})">+</button>
       </div>
       <p>${100*habitObject.progress/habitObject.frequency}% Completed</p>
     </div>`;
     container.innerHTML+=template
       }
      }
+    }
+    read()
+    function record(id){
+      var ob = JSON.parse(localStorage.getItem('habit'+id));
+     var tbr = document.querySelector('.habit'+id)
+    ob.progress += 1;
+     tbr.querySelector('.thread').innerText = ob.progress
+     
+  
+     localStorage.setItem('habit'+id,JSON.stringify(ob))
     }
   </script>
 </body>
