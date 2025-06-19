@@ -39,7 +39,8 @@
         id:id(),
         name:name,
         period:period,
-        frequency:frequency
+        frequency:frequency,
+        progress:0
       }
       
       localStorage.setItem('habit'+id(),JSON.stringify(hbt))
@@ -49,7 +50,16 @@
       for (i = 1; i <= localStorage.length; i++) {
         if (localStorage.getItem('habit' + i)) {
           var habitObject = JSON.parse(localStorage.getItem('habit' + i));
-          
+          var template = `<div class="habit">
+      <h2>${habitObject.name}</h2>
+      <p><span>Frequency: ${habitObject.frequency}</span><span>Period: ${habitObject.period}</span></p>
+      <div class="prog">
+        <div class="thread-con"><div class="thread">${habitObject.progress}</div></div>
+        <button type="button">+</button>
+      </div>
+      <p>${100*habitObject.progress/habitObject.frequency}% Completed</p>
+    </div>`;
+    container.innerHTML+=template
       }
      }
     }
