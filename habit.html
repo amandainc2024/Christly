@@ -5,6 +5,53 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title></title>
+  <style>
+  *{padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+    .habit{background: #eef;
+      margin: 4%;
+      padding: 7px;
+      border-radius: 8px;
+      width: 92%;
+      
+    }
+    .habit > *{
+      margin-block: 20px;
+    }
+    .habit .details span{
+      background: #88f;
+      padding: 3px;
+      font-size: .8rem;
+      margin: 36px 12px;
+      border-radius: 63px;
+    }
+    .prog{
+      display: flex;
+    }
+    .prog .thread-con{
+      width: 88%;
+background: #ccc;
+height:20px;
+border-radius: 577px;
+            
+    }
+    .prog .thread{
+      background: #88f;
+      width: 85%;
+      text-align: center;
+height:20px;
+border-radius: 577px;
+    }
+    .prog button{
+      width: 10%;
+      border: none;
+      background: #55f;
+      border-radius: 7px;
+      color: white;
+    }
+  </style>
 </head>
 <body>
   
@@ -52,7 +99,7 @@
           var habitObject = JSON.parse(localStorage.getItem('habit' + i));
           var template = `<div class="habit">
       <h2>${habitObject.name}</h2>
-      <p><span>Frequency: ${habitObject.frequency}</span><span>Period: ${habitObject.period}</span></p>
+      <p class="details"><span>Frequency: ${habitObject.frequency}</span><span>Period: ${habitObject.period}</span></p>
       <div class="prog">
         <div class="thread-con"><div class="thread">${habitObject.progress}</div></div>
         <button type="button">+</button>
