@@ -16,7 +16,11 @@
       <option value="">Monthly</option>
     </select>
     <input id="frequency" type="number">
+    <button type="button" onclick="add()">Add</button>
   </form>
+  <main>
+    <!--Tab to edit-->
+  </main>
   
   <script>
   function id() {
@@ -30,7 +34,7 @@
 }
     function add(){
       
-      var name = document.querySelector('#habit').value,period=document.querySelector('#period option:selected').innerText, frequency=document.querySelector('#frequency').value;
+      var name = document.querySelector('#habit').value,period=document.querySelector('select option').value, frequency=document.querySelector('#frequency').value;
       var hbt = {
         id:id(),
         name:name,
@@ -39,6 +43,15 @@
       }
       
       localStorage.setItem('habit'+id(),JSON.stringify(hbt))
+    }
+    function read(){
+      var container = document.querySelector('main')
+      for (i = 1; i <= localStorage.length; i++) {
+        if (localStorage.getItem('habit' + i)) {
+          var habitObject = JSON.parse(localStorage.getItem('habit' + i));
+          
+      }
+     }
     }
   </script>
 </body>
