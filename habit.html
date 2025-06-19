@@ -29,9 +29,11 @@
     }
     .prog{
       display: flex;
+      overflow: hidden;
     }
     .prog .thread-con{
       width: 88%;
+      overflow: hidden;
 background: #ccc;
 height:20px;
 border-radius: 577px;
@@ -39,9 +41,10 @@ border-radius: 577px;
     }
     .prog .thread{
       background: #88f;
-      width: 0%;
+      max-width: 100%;
       text-align: center;
 height:20px;
+transition: all 1s linear;
 border-radius: 577px;
     }
     .prog button{
@@ -103,7 +106,7 @@ border-radius: 577px;
       <h2>${habitObject.name}</h2>
       <p class="details"><span>Frequency: ${habitObject.frequency}</span><span>Period: ${habitObject.period}</span></p>
       <div class="prog">
-        <div class="thread-con"><div class="thread">${habitObject.progress}</div></div>
+        <div class="thread-con"><div style="width:${100*habitObject.progress/habitObject.frequency+"%"}" class="thread">${habitObject.progress}</div></div>
         <button type="button" onclick="record(${habitObject.id})">+</button>
       </div>
       <p>${100*habitObject.progress/habitObject.frequency}% Completed</p>
@@ -114,13 +117,20 @@ border-radius: 577px;
     }
     read()
     function record(id){
-      var ob = JSON.parse(localStorage.getItem('habit'+id));
+      var habitObject = JSON.parse(localStorage.getItem('habit'+id));
      var tbr = document.querySelector('.habit'+id)
-    ob.progress += 1;
-     tbr.querySelector('.thread').innerText = ob.progress
-     
-  
-     localStorage.setItem('habit'+id,JSON.stringify(ob))
+    habitObject.progress += 1;
+     //var thread = tbr.querySelector('.thread')
+    // thread.innerText = ob.progress
+     tbr.innerHTML = `      <h2>${habitObject.name}</h2>
+      <p class="details"><span>Frequency: ${habitObject.frequency}</span><span>Period: ${habitObject.period}</span></p>
+      <div class="prog">
+        <div class="thread-con"><div style="width:${100*habitObject.progress/habitObject.frequency+"%"}" class="thread">${habitObject.progress}</div></div>
+        <button type="button" onclick="record(${habitObject.id})">+</button>
+      </div>
+      <p>${100*habitObject.progress/habitObject.frequency}% Completed</p>`
+ 
+     localStorage.setItem('habit'+id,JSON.stringify(habitObject))
     }
   </script>
 </body>
