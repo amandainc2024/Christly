@@ -9,31 +9,36 @@
 <body>
   
   <form action="">
-    <input placeholder="habit">
+    <input placeholder="habit" id="habit">
     <select name="period" id="period">
       <option value="">Daily</option>
       <option value="">Weekly</option>
       <option value="">Monthly</option>
     </select>
-    <input type="number">
+    <input id="frequency" type="number">
   </form>
   
   <script>
+  function id() {
+  var count = 1;
+  for (i = 1; i <= localStorage.length; i++) {
+    if (localStorage.getItem('habit' + i)) {
+      count++
+    }
+  }
+  return count
+}
     function add(){
-      function id(){
-        var count = 0;
-        for(i=1;i<=localStorage.length;i++){
-          
-        }
-      }
-      var name = 'Pray',period='Weekly', frequency=7;
+      
+      var name = document.querySelector('#habit').value,period=document.querySelector('#period option:selected').innerText, frequency=document.querySelector('#frequency').value;
       var hbt = {
         id:id(),
         name:name,
         period:period,
         frequency:frequency
       }
-      var 
+      
+      localStorage.setItem('habit'+id(),JSON.stringify(hbt))
     }
   </script>
 </body>
