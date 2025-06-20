@@ -79,6 +79,8 @@ border-radius: 577px;
       border-radius:5px;
       margin-left: 11px;
     }
+    .ud .fbtn{width: 120px;display: inline;}
+    .ud .fbtn.v{background: #ddd;color: black;}
     input{
       width: 90%;
       margin: 8px;
@@ -99,6 +101,12 @@ border-radius: 577px;
       border-radius: 6px 6px 0 0;
     }
     .ud h2{text-align: center;margin: 41px 0;}
+   .habit h2 c i.edit{
+      background: #cfc;
+      color:green;
+      padding-inline: 14px;
+      margin-inline: 5px;
+    }
   </style>
 </head>
 <body>
@@ -128,8 +136,8 @@ border-radius: 577px;
       <option value="Monthly">Monthly</option>
     </select>
     <input type="number" id="new-frequency">
-    <button type="button" class="fbtn" onclick="updateHabit()">Add</button>
-
+   <div> <button type="button" class="v fbtn" onclick="document.querySelector('.ud').style.display='none'">Cancel</button>
+    <button type="button" class="fbtn save" onclick="updateHabit()">Save Changes</button></div>
   </div>
   <script>
   function id() {
@@ -186,7 +194,7 @@ border-radius: 577px;
      //var thread = tbr.querySelector('.thread')
     // thread.innerText = ob.progress
      tbr.innerHTML = `   
-      <h2><span>${habitObject.name}</span> <c><i onclick="dialog(${habitObject.id})">Delete</i><i class="edit">Edit</i></c></h2>
+      <h2><span>${habitObject.name}</span> <c><i onclick="dialog(${habitObject.id})">Delete</i><i class="edit" onclick="sUD(${habitObject.id})">Edit</i></c></h2>
       <p class="details"><span>Frequency: ${habitObject.frequency}</span><span>Period: ${habitObject.period}</span></p>
       <div class="prog">
         <div class="thread-con"><div style="width:${100*habitObject.progress/habitObject.frequency+"%"}" class="thread">${habitObject.progress}</div></div>
@@ -211,9 +219,29 @@ border-radius: 577px;
      var habitObj = JSON.parse(localStorage.getItem('habit'+id))
      document.querySelector('.ud #new-title').value = habitObj.name
      document.querySelector('.ud #new-frequency').value = habitObj.frequency
+     document.querySelector('.ud button.save').setAttribute('onclick',`updateHabit(${id})`)
     }
-    function updateHabit(){
+    function updateHabit(id){
+      var habitObj = JSON.parse(localStorage.getItem('habit'+id))
+      habitObj.name = document.querySelector('.ud #new-title').value;
+      habitObj.frequency = document.querySelector('.ud #new-frequency').value;
+
+      localStorage.setItem('habit'+id, JSON.stringify(habitObj))
       
+      var habitObject = JSON.parse(localStorage.getItem('habit'+id));
+     var tbr = document.querySelector('.habit'+id)
+    //habitObject.progress += 1;
+     //var thread = tbr.querySelector('.thread')
+    // thread.innerText = ob.progress
+     tbr.innerHTML = `   
+      <h2><span>${habitObject.name}</span> <c><i onclick="dialog(${habitObject.id})">Delete</i><i class="edit" onclick="sUD(${habitObject.id})">Edit</i></c></h2>
+      <p class="details"><span>Frequency: ${habitObject.frequency}</span><span>Period: ${habitObject.period}</span></p>
+      <div class="prog">
+        <div class="thread-con"><div style="width:${100*habitObject.progress/habitObject.frequency+"%"}" class="thread">${habitObject.progress}</div></div>
+        <button type="button" onclick="record(${habitObject.id})">+</button>
+      </div>
+      <p>${100*habitObject.progress/habitObject.frequency}% Completed</p>`
+ document.querySelector('.ud button').click()
     }
   </script>
 </body>
