@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>wysiwyg CKEditor text editor</title>
+  <script src="https://cdn.ckeditor.com/4.7.0/standard/ckeditor.js"></script><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!--Modal trigger-->
+        <div class="vehicleConditionHeader" data-toggle="modal" data-target="#scanLicenceModal">
+            <button class="btn btn-md btn-primary btn-block" type="submit">WYSIWYG CKEditor</button>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="row">
+            <div class="col-xs-1 col-sm-1 col-md-1">
+            </div>
+            <div class="col-xs-10 col-sm-10 col-md-10">
+                <div class="modal fade" id="scanLicenceModal" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel">
+                    <div class="modal-dialog modal-custom-width" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Header text</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="container">
+                                  <textarea name="editor1" id="editor1" rows="10" cols="80">
+                                    This is my textarea to be replaced with CKEditor wysiwyg.
+                                  </textarea>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+            <div class="col-xs-1 col-sm-1 col-md-1">
+              
+            </div>
+            </div>
+        </div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>

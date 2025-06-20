@@ -1,0 +1,14 @@
+body {
+  background-color:black;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.vehicleConditionHeader {
+  width: 200px;
+  margin: 0 auto;
+  padding-top: 10%;
+}
