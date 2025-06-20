@@ -8,6 +8,7 @@
   <style>
   *{padding: 0;
     margin: 0;
+    outline: 0;
     box-sizing: border-box;
   }
     .habit{background: #eef;
@@ -61,6 +62,35 @@ border-radius: 577px;
       align-items: center;
     }
     .habit h2 i{color: red;font-size: 16px;font-style: normal; background: #fcc; border-radius: 46px; padding: 3px 6px; font-weight: normal;}
+    .ud{
+      display:none;
+      position: fixed;
+      inset: 0;
+      flex-direction: column;
+      justify-content: center;
+      background: white;
+      align-items: ;
+    }
+    input{
+      width: 90%;
+      margin: 8px;
+      border:none;
+      border-bottom: solid 1.5px black;
+      background: #ddd;
+      padding: 8px;
+      border-radius: 6px 6px 0 0;
+    }
+    select {
+      width: 90%;
+      margin: 8px;
+      
+      border:none;
+      border-bottom: solid 1.5px black;
+      background: #ddd;
+      padding: 8px;
+      border-radius: 6px 6px 0 0;
+    }
+    .ud h2{text-align: center;margin: 41px 0;}
   </style>
 </head>
 <body>
@@ -80,6 +110,16 @@ border-radius: 577px;
   </main>
   <div class="dialog">
     Are you sure you want to delete this?
+  </div>
+  <div class="ud">
+    <h2>Update Habit</h2>
+    <input type="text" name="new-title" id="new-title" value=""/>
+        <select id="new-period">
+      <option selected value="Daily">Daily</option>
+      <option value="Weekly">Weekly</option>
+      <option value="Monthly">Monthly</option>
+    </select>
+    <input type="number" id="frequency">
   </div>
   <script>
   function id() {
@@ -110,7 +150,6 @@ border-radius: 577px;
       var container = document.querySelector('main')
       container.innerHTML=''
       for (i = 1; i <= localStorage.length; i++) {
-        console.log(i)
         if (localStorage.getItem('habit' + i)) {
           var habitObject = JSON.parse(localStorage.getItem('habit' + i));
           var template = `<div class="habit habit${habitObject.id}">
@@ -122,7 +161,10 @@ border-radius: 577px;
       </div>
       <p>${100*habitObject.progress/habitObject.frequency}% Completed</p>
     </div>`;
-       container.innerHTML+=template
+            console.log(localStorage.getItem('habit' + i).alive)
+      if (habitObject.alive) {
+        container.innerHTML+=template
+      }
       }
      }
     }
@@ -151,6 +193,8 @@ border-radius: 577px;
       var habitObject = JSON.parse(localStorage.getItem('habit'+id));
      var tbd = document.querySelector('.habit'+id)
      tbd.remove()
+     habitObject.alive = false;
+     localStorage.setItem('habit'+id,JSON.stringify(habitObject))
     }
   </script>
 </body>
