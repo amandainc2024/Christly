@@ -140,6 +140,7 @@ border-radius: 577px;
     <button type="button" class="fbtn save" onclick="updateHabit()">Save Changes</button></div>
   </div>
   <script>
+  var today = new Date().getFullYear()+"-"+(new Date().getMonth()+1)+"-"+(new Date().getDate()+2)
   function id() {
   var count = 1;
   for (i = 1; i <= localStorage.length; i++) {
@@ -157,27 +158,33 @@ border-radius: 577px;
         name:name,
         period:period,
         frequency:frequency,
-        progress:0,
+        progress:{},
         alive:true
       }
-      
+      hbt.progress[today]=0
       localStorage.setItem('habit'+id(),JSON.stringify(hbt))
       read()
     }
     function read(){
+      
       var container = document.querySelector('main')
       container.innerHTML=''
       for (i = 1; i <= localStorage.length; i++) {
         if (localStorage.getItem('habit' + i)) {
           var habitObject = JSON.parse(localStorage.getItem('habit' + i));
+          if(!habitObject.progress[today]){
+        habitObject.progress[today]=0;
+        localStorage.setItem('habit'+i,JSON.stringify(habitObject))
+      }
+      habitObject = JSON.parse(localStorage.getItem('habit' + i));
           var template = `<div class="habit habit${habitObject.id}">
       <h2><span>${habitObject.name}</span><c><i onclick="dialog(${habitObject.id})">Delete</i><i class="edit" onclick="sUD(${habitObject.id})">Edit</i></c></h2>
       <p class="details"><span>Frequency: ${habitObject.frequency}</span><span>Period: ${habitObject.period}</span></p>
       <div class="prog">
-        <div class="thread-con"><div style="width:${100*habitObject.progress/habitObject.frequency+"%"}" class="thread">${habitObject.progress}</div></div>
+        <div class="thread-con"><div style="width:${100*habitObject.progress[today]/habitObject.frequency+"%"}" class="thread">${habitObject.progress[today]}</div></div>
         <button type="button" onclick="record(${habitObject.id})">+</button>
       </div>
-      <p>${100*habitObject.progress/habitObject.frequency}% Completed</p>
+      <p>${100*habitObject.progress[today]/habitObject.frequency}% Completed</p>
     </div>`;
             console.log(localStorage.getItem('habit' + i).alive)
       if (habitObject.alive) {
@@ -190,17 +197,17 @@ border-radius: 577px;
     function record(id){
       var habitObject = JSON.parse(localStorage.getItem('habit'+id));
      var tbr = document.querySelector('.habit'+id)
-    habitObject.progress += 1;
+    habitObject.progress[today] += 1;
      //var thread = tbr.querySelector('.thread')
     // thread.innerText = ob.progress
      tbr.innerHTML = `   
       <h2><span>${habitObject.name}</span> <c><i onclick="dialog(${habitObject.id})">Delete</i><i class="edit" onclick="sUD(${habitObject.id})">Edit</i></c></h2>
       <p class="details"><span>Frequency: ${habitObject.frequency}</span><span>Period: ${habitObject.period}</span></p>
       <div class="prog">
-        <div class="thread-con"><div style="width:${100*habitObject.progress/habitObject.frequency+"%"}" class="thread">${habitObject.progress}</div></div>
+        <div class="thread-con"><div style="width:${100*habitObject.progress[today]/habitObject.frequency+"%"}" class="thread">${habitObject.progress[today]}</div></div>
         <button type="button" onclick="record(${habitObject.id})">+</button>
       </div>
-      <p>${100*habitObject.progress/habitObject.frequency}% Completed</p>`
+      <p>${100*habitObject.progress[today]/habitObject.frequency}% Completed</p>`
  
      localStorage.setItem('habit'+id,JSON.stringify(habitObject))
     }
@@ -237,10 +244,10 @@ border-radius: 577px;
       <h2><span>${habitObject.name}</span> <c><i onclick="dialog(${habitObject.id})">Delete</i><i class="edit" onclick="sUD(${habitObject.id})">Edit</i></c></h2>
       <p class="details"><span>Frequency: ${habitObject.frequency}</span><span>Period: ${habitObject.period}</span></p>
       <div class="prog">
-        <div class="thread-con"><div style="width:${100*habitObject.progress/habitObject.frequency+"%"}" class="thread">${habitObject.progress}</div></div>
+        <div class="thread-con"><div style="width:${100*habitObject.progress[today]/habitObject.frequency+"%"}" class="thread">${habitObject.progress[today]}</div></div>
         <button type="button" onclick="record(${habitObject.id})">+</button>
       </div>
-      <p>${100*habitObject.progress/habitObject.frequency}% Completed</p>`
+      <p>${100*habitObject.progress[today]/habitObject.frequency}% Completed</p>`
  document.querySelector('.ud button').click()
     }
   </script>

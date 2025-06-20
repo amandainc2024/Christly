@@ -11,8 +11,11 @@
   
   
   <script>
-   var fi = new FileReader()
-   fi.readAsText('index.html')
+   fetch('index.html').then(res=>{
+     var f = new FileReader();
+     //f.readAsText(res.blob);
+     console.log(res.text)
+   })
   </script>
   
 </body>
