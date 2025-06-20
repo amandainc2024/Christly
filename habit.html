@@ -127,7 +127,7 @@ border-radius: 577px;
       <option value="Weekly">Weekly</option>
       <option value="Monthly">Monthly</option>
     </select>
-    <input type="number" id="frequency">
+    <input type="number" id="new-frequency">
     <button type="button" class="fbtn" onclick="updateHabit()">Add</button>
 
   </div>
@@ -163,7 +163,7 @@ border-radius: 577px;
         if (localStorage.getItem('habit' + i)) {
           var habitObject = JSON.parse(localStorage.getItem('habit' + i));
           var template = `<div class="habit habit${habitObject.id}">
-      <h2><span>${habitObject.name}</span><i onclick="dialog(${habitObject.id})">Delete</i></h2>
+      <h2><span>${habitObject.name}</span><c><i onclick="dialog(${habitObject.id})">Delete</i><i class="edit" onclick="sUD(${habitObject.id})">Edit</i></c></h2>
       <p class="details"><span>Frequency: ${habitObject.frequency}</span><span>Period: ${habitObject.period}</span></p>
       <div class="prog">
         <div class="thread-con"><div style="width:${100*habitObject.progress/habitObject.frequency+"%"}" class="thread">${habitObject.progress}</div></div>
@@ -186,7 +186,7 @@ border-radius: 577px;
      //var thread = tbr.querySelector('.thread')
     // thread.innerText = ob.progress
      tbr.innerHTML = `   
-      <h2><span>${habitObject.name}</span><i onclick="dialog(${habitObject.id})">Delete</i></h2>
+      <h2><span>${habitObject.name}</span> <c><i onclick="dialog(${habitObject.id})">Delete</i><i class="edit">Edit</i></c></h2>
       <p class="details"><span>Frequency: ${habitObject.frequency}</span><span>Period: ${habitObject.period}</span></p>
       <div class="prog">
         <div class="thread-con"><div style="width:${100*habitObject.progress/habitObject.frequency+"%"}" class="thread">${habitObject.progress}</div></div>
@@ -205,6 +205,15 @@ border-radius: 577px;
      tbd.remove()
      habitObject.alive = false;
      localStorage.setItem('habit'+id,JSON.stringify(habitObject))
+    }
+    function sUD(id){
+      document.querySelector('.ud').style.display = 'flex'
+     var habitObj = JSON.parse(localStorage.getItem('habit'+id))
+     document.querySelector('.ud #new-title').value = habitObj.name
+     document.querySelector('.ud #new-frequency').value = habitObj.frequency
+    }
+    function updateHabit(){
+      
     }
   </script>
 </body>
