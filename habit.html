@@ -152,7 +152,7 @@ border-radius: 577px;
 }
     function add(){
       
-      var name = document.querySelector('#habit').value,period=document.querySelector('select option').value, frequency=document.querySelector('#frequency').value;
+      var name = document.querySelector('#habit').value,period=document.querySelector("select").options[document.querySelector("select").selectedIndex].value, frequency=document.querySelector('#frequency').value;
       var hbt = {
         id:id(),
         name:name,
@@ -232,7 +232,7 @@ border-radius: 577px;
       var habitObj = JSON.parse(localStorage.getItem('habit'+id))
       habitObj.name = document.querySelector('.ud #new-title').value;
       habitObj.frequency = document.querySelector('.ud #new-frequency').value;
-
+ habitObj.period = document.querySelector(".ud select").options[document.querySelector(".ud select").selectedIndex].value;
       localStorage.setItem('habit'+id, JSON.stringify(habitObj))
       
       var habitObject = JSON.parse(localStorage.getItem('habit'+id));
