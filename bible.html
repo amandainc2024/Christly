@@ -5,17 +5,108 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title></title>
+  <style>
+  *{font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;}
+    h1{
+      text-align: center;
+      margin-block: 60px;
+    }
+    .books p{
+      
+      padding: 12px 6px;
+      box-sizing: border-box;
+      margin: 0;
+      border-bottom: solid 1px dimgrey;
+      font-weight: 350;
+      
+    }
+    .chapters,.verses{
+      position: fixed;
+      inset: 0;
+      display: none;
+      overflow: scroll;
+      background: white;
+      padding: 7px;
+    }
+    .chapters ul{padding: 0;}
+    .chapters li{
+      list-style: none;
+      display: inline-block;
+      background: #ddd;
+      font-size: 1.4rem;
+      padding: 9px;
+      margin:  6px;
+      text-align: center;
+      height:21px;
+      aspect-ratio: 1/1;
+      border-radius: 4px;
+    }
+    .verses h2{
+      position: fixed;
+      top: 0;
+      box-sizing: border-box;
+      left: 0;
+      background: white;
+      padding: 12px 5px;
+      width: 100%;
+    }
+    h2 i{
+      color: blue;
+      font-size: 1rem;
+      padding-right: 8px;
+      font-style: normal;
+      float: right;
+    }
+    .verses main {
+      padding-top: 60px;
+    }
+    .verses main p i{
+      vertical-align: super;
+      font-style: normal;
+      font-weight: bold;
+      color: dimgrey;
+      padding-right: 5px;
+      font-size: .76rem;
+    }
+  </style>
 </head>
 
 <body>
+  <h1>Holy Bible</h1>
+  <div class="books">
+   
+  </div>
+  <div class="chapters">
+    <h2>Genesis</h2>
+    <ul>
+
+    </ul>
+  </div>
   
-  
+  <div class="verses">
+    <h2></h2>
+    <main>
+    </main>
+  </div>
+  <script src="bible.js" type="text/javascript" charset="utf-8"></script>
   <script>
-   fetch('index.html').then(res=>{
-     var f = new FileReader();
-     //f.readAsText(res.blob);
-     console.log(res.text)
-   })
+    // console.log(bible)
+   for(i=0;i<66;i++){
+     document.querySelector('.books').innerHTML += `<p onclick='openChapters(${i})'>${bible[i].name}</p>`
+   }
+   function openChapters(id){
+     document.querySelector('.chapters'). style.display ='block';
+     document.querySelector('.chapters h2').innerHTML = bible[id].name;
+     for(i=1;i<=bible[id].chapters.length;i++){
+     document.querySelector('.chapters ul').innerHTML += `<li onclick='openVerse(${id}, ${i})'>${i}</li>`}
+   }
+   function openVerse(b,c){
+     document.querySelector('.verses'). style.display ='block';
+     document.querySelector('.verses h2').innerHTML = bible[b].name+" "+c+"<i>Back</i>";
+     for(i=1;i<=bible[b].chapters[c-1].length;i++){
+     document.querySelector('.verses main').innerHTML += `          <p><i>${i}</i><span>${bible[b].chapters[c-1][i-1]}</span></p>
+`}
+   }
   </script>
   
 </body>

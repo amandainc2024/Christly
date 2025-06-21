@@ -111,6 +111,12 @@ a {
 
 .nav__link {
   color: var(--text-color);
+  text-align: center;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
   font-size: 1.5rem;
   transition: color .4s;
 }
@@ -118,7 +124,7 @@ a {
 .nav__link:hover {
   color: var(--white-color);
 }
-
+.nav__link span{display: block;}
 /*=============== EXPAND LIST ===============*/
 .nav__expand {
   border: none;
@@ -185,8 +191,9 @@ a {
   font-size: 1.5rem;
 }
 
-.nav__expand-link span {
+.nav__expand-link span ,.nav__link span{
   font-size: var(--tiny-font-size);
+  
   font-weight: var(--font-semi-bold);
 }
 
@@ -234,13 +241,14 @@ a {
             <li>
                <a href="#home" class="nav__link active-link">
                   <i class="ri-home-smile-2-line"></i>
+                  <span>Home</span>
                </a>
             </li>
 
             <li>
                <a href="#about" class="nav__link">
                   <i class="ri-task-line"></i>
-                  <span>Habit Tracker</span>
+                  <span>Habits</span>
                </a>
             </li>
 
@@ -254,7 +262,7 @@ a {
                   <li>
                      <a href="#" class="nav__expand-link">
                         <i class="ri-file-3-line"></i>
-                        <span>Task</span>
+                        <span>Notes</span>
                      </a>
                   </li>
       
@@ -277,12 +285,14 @@ a {
             <li>
                <a href="#projects" class="nav__link">
                   <i class="ri-candle-line"></i>
+                  <span>Prayers</span>
                </a>
             </li>
 
             <li>
                <a href="#contact" class="nav__link">
                   <i class="ri-book-2-line"></i>
+                  <span>Bible</span>
                </a>
             </li>
          </ul>
