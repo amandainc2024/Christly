@@ -20,6 +20,10 @@
       font-weight: 350;
       
     }
+    .books p.active, .chapters li.active{
+      background: black;
+      color: white;
+    }
     .chapters,.verses{
       position: fixed;
       inset: 0;
@@ -68,6 +72,18 @@
       padding-right: 5px;
       font-size: .76rem;
     }
+    .verses button.next{
+      background: black;
+      float: right;
+      margin-right: 12px;
+      right: 12px;
+      border: 0;
+      color: white;
+      padding: 8px 16px;
+      
+      font-size: 1.1rem;
+      border-radius: 8px;
+    }
   </style>
 </head>
 
@@ -92,20 +108,41 @@
   <script>
     // console.log(bible)
    for(i=0;i<66;i++){
-     document.querySelector('.books').innerHTML += `<p onclick='openChapters(${i})'>${bible[i].name}</p>`
+     document.querySelector('.books').innerHTML += `<p onclick='openChapters(this,${i})'>${bible[i].name}</p>`
    }
-   function openChapters(id){
+   function openChapters(h,id){
+    var cab= document.querySelector('.books > p.active')
+    if(cab){cab.classList.remove('active')}
+     h.classList.add('active')
      document.querySelector('.chapters'). style.display ='block';
-     document.querySelector('.chapters h2').innerHTML = bible[id].name;
+     document.querySelector('.chapters h2').innerHTML = bible[id].name+"<i onclick='bfc()'>Back</i>";
+     document.querySelector('.chapters ul').innerHTML =''
      for(i=1;i<=bible[id].chapters.length;i++){
-     document.querySelector('.chapters ul').innerHTML += `<li onclick='openVerse(${id}, ${i})'>${i}</li>`}
+     document.querySelector('.chapters ul').innerHTML += `<li onclick='openVerse(this,${id}, ${i})'>${i}</li>`}
    }
-   function openVerse(b,c){
+   function openVerse(u,b,c){
+        var cab= document.querySelector('.chapters  li.active')
+    if(cab){cab.classList.remove('active')}
+     u.classList.add('active')
      document.querySelector('.verses'). style.display ='block';
-     document.querySelector('.verses h2').innerHTML = bible[b].name+" "+c+"<i>Back</i>";
+     document.querySelector('.verses h2').innerHTML = bible[b].name+" "+c+`<i onclick="document.querySelector('.verses').style.display = 'none'">Back</i>`;
+     document.querySelector('.verses main').innerHTML =''
      for(i=1;i<=bible[b].chapters[c-1].length;i++){
-     document.querySelector('.verses main').innerHTML += `          <p><i>${i}</i><span>${bible[b].chapters[c-1][i-1]}</span></p>
+     document.querySelector('.verses main').innerHTML += `          <p onclick="favorite(${b},${c},${i})"><i>${i}</i><span>${bible[b].chapters[c-1][i-1]}</span></p>
 `}
+document.querySelector(".verses").scrollTop=0
+  document.querySelector('.verses main').innerHTML += ` <button class="next" onclick="nextChapter()">Next Chapter</button>`
+   }
+   function bfc(){
+     document.querySelector('.chapters').style.display = 'none'
+   }
+   function nextChapter(){
+     document.querySelector('.verses').style.display = 'none'
+     var next = parseInt(document.querySelector('.chapters li.active').innerText)
+     document.querySelectorAll('.chapters li')[next].click()
+   }
+   function favorite(b,c,v){
+     localStorage.setItem('bible',`${b},${c},${v}`)
    }
   </script>
   

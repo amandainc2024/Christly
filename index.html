@@ -54,6 +54,7 @@
 
 html {
   scroll-behavior: smooth;
+  height:100vh;
 }
 
 body {
@@ -75,7 +76,12 @@ a {
   max-width: 1120px;
   margin-inline: 1.5rem;
 }
-
+iframe{
+  postion:fixed;
+  inset:0;
+  width: 100%;
+  height:100vh;
+}
 /* Remove the property of 100vh, when inserting its content */
 .section {
   height: 100vh;
@@ -98,7 +104,7 @@ a {
   width: 88%;
   margin-inline: auto;
   box-shadow: 0 2px 16px hsla(228, 95%, 4%, .1);
-  padding: 1rem 1.75rem;
+  padding: .75rem 1.75rem;
   border-radius: 4rem;
   z-index: var(--z-fixed);
 }
@@ -235,18 +241,19 @@ a {
       <title>Responsive navbar with expanded menu - Bedimcode</title>
    </head>
    <body>
+       <iframe src="bible.html" frameborder="2"></iframe>
       <!--=============== NAVBAR ===============-->
       <nav class="nav">
          <ul class="nav__list">
             <li>
-               <a href="#home" class="nav__link active-link">
+               <a class="nav__link active-link">
                   <i class="ri-home-smile-2-line"></i>
                   <span>Home</span>
                </a>
             </li>
 
             <li>
-               <a href="#about" class="nav__link">
+               <a class="nav__link">
                   <i class="ri-task-line"></i>
                   <span>Habits</span>
                </a>
@@ -260,21 +267,21 @@ a {
 
                <ul class="nav__expand-list" id="nav-expand-list">
                   <li>
-                     <a href="#" class="nav__expand-link">
+                     <a class="nav__expand-link">
                         <i class="ri-file-3-line"></i>
                         <span>Notes</span>
                      </a>
                   </li>
       
                   <li>
-                     <a href="#" class="nav__expand-link">
+                     <a class="nav__expand-link">
                         <i class="ri-candle-line"></i>
                         <span>Prayer</span>
                      </a>
                   </li>
       
                   <li>
-                     <a href="#" class="nav__expand-link">
+                     <a class="nav__expand-link">
                         <i class="ri-task-line"></i>
                         <span>Habit</span>
                      </a>
@@ -283,14 +290,14 @@ a {
             </li>
          
             <li>
-               <a href="#projects" class="nav__link">
+               <a class="nav__link">
                   <i class="ri-candle-line"></i>
                   <span>Prayers</span>
                </a>
             </li>
 
             <li>
-               <a href="#contact" class="nav__link">
+               <a class="nav__link">
                   <i class="ri-book-2-line"></i>
                   <span>Bible</span>
                </a>
@@ -300,21 +307,7 @@ a {
 
       <!--==================== MAIN ====================-->
       <main class="container">
-         <section class="section" id="home">
-            <h1>HOME</h1>
-         </section>
-
-         <section class="section" id="about">
-            <h1>ABOUT</h1>
-         </section>
-
-         <section class="section" id="projects">
-            <h1>PROJECTS</h1>
-         </section>
-
-         <section class="section" id="contact">
-            <h1>CONTACT</h1>
-         </section>
+       
       </main>
       
       <!--=============== MAIN JS ===============-->
@@ -335,25 +328,6 @@ navExpand.addEventListener('click', () => {
 })
 
 /*=============== SCROLL SECTIONS ACTIVE LINK ===============*/
-const sections = document.querySelectorAll('section[id]')
-    
-const scrollActive = () =>{
-  	const scrollDown = window.scrollY
-
-	sections.forEach(current =>{
-		const sectionHeight = current.offsetHeight,
-			  sectionTop = current.offsetTop - 58,
-			  sectionId = current.getAttribute('id'),
-			  sectionsClass = document.querySelector('.nav__list a[href*=' + sectionId + ']')
-
-		if(scrollDown > sectionTop && scrollDown <= sectionTop + sectionHeight){
-			sectionsClass.classList.add('active-link')
-		}else{
-			sectionsClass.classList.remove('active-link')
-		}                                                    
-	})
-}
-window.addEventListener('scroll', scrollActive)
 
       </script>
    </body>
