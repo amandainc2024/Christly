@@ -1,14 +1,23 @@
-body {
-  background-color:black;
+.div{background: red;}
+.quill {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-column-gap: 10px;
+  justify-items: stretch;
+  height: 100%;
+  width:100%;
 }
-
-.container {
-  width: 90%;
-  margin: 0 auto;
+.quill .editor {
+  wdith: 100%;
 }
-
-.vehicleConditionHeader {
-  width: 200px;
-  margin: 0 auto;
-  padding-top: 10%;
+.quill button {
+  background-color: royalBlue;
+  border: 0;
+  border-radius: 3px;
+  font-size: 16px;
+  color: white;
+  margin: 0 0 10px;
+  padding: 10px;
 }
