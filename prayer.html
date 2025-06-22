@@ -125,12 +125,8 @@ border-radius: 577px;
     <div class="ud">
     <h2>Update Habit</h2>
     <input type="text" name="new-title" id="new-title" value=""/>
-        <select id="new-period">
-      <option selected value="Daily">Daily</option>
-      <option value="Weekly">Weekly</option>
-      <option value="Monthly">Monthly</option>
-    </select>
-    <input type="number" id="new-frequency">
+   
+    <input type="text" id="new-frequency">
    <div> <button type="button" class="v fbtn" onclick="document.querySelector('.ud').style.display='none'">Cancel</button>
     <button type="button" class="fbtn save" onclick="updateHabit()">Save Changes</button></div>
   </div>
@@ -171,10 +167,10 @@ border-radius: 577px;
       <p class="details">
       ${prayerObject.description}</p>
       <div class="prog">
-        <div class="thread-con"><div style="width:${100*prayerObject.progress/prayerObject.frequency+"%"}" class="thread">${prayerObject.progress}</div></div>
-        <button type="button" onclick="record(${prayerObject.id})">+</button>
+        <div class="thread-con"><div style="width:100% "class="thread">${prayerObject.answered}</div></div>
+        <button type="button" onclick="record(${prayerObject.id})">✅</button>
       </div>
-      <p>${100*prayerObject.progress/prayerObject.frequency}% Completed</p>
+      <p>Since ${prayerObject.date}</p>
     </div>`;
             console.log(localStorage.getItem('prayer' + i).alive)
       if (prayerObject.alive) {
@@ -187,17 +183,19 @@ border-radius: 577px;
     function record(id){
       var prayerObject = JSON.parse(localStorage.getItem('prayer'+id));
      var tbr = document.querySelector('.prayer'+id)
-    prayerObject.progress += 1;
+    prayerObject.answered = true;
      //var thread = tbr.querySelector('.thread')
     // thread.innerText = ob.progress
-     tbr.innerHTML = `   
-      <h2><span>${prayerObject.name}</span> <c><i onclick="dialog(${prayerObject.id})">Delete</i><i class="edit" onclick="sUD(${prayerObject.id})">Edit</i></c></h2>
-      <p class="details"><span>Frequency: ${prayerObject.frequency}</span><span>Period: ${prayerObject.period}</span></p>
+     tbr.innerHTML = `
+      <h2><span>${prayerObject.name}</span><c><i onclick="dialog(${prayerObject.id})">Delete</i><i class="edit" onclick="sUD(${prayerObject.id})">Edit</i></c></h2>
+      <p class="details">
+      ${prayerObject.description}</p>
       <div class="prog">
-        <div class="thread-con"><div style="width:${100*prayerObject.progress/prayerObject.frequency+"%"}" class="thread">${prayerObject.progress}</div></div>
-        <button type="button" onclick="record(${prayerObject.id})">+</button>
-      </div>
-      <p>${100*prayerObject.progress/prayerObject.frequency}% Completed</p>`
+        <div class="thread-con"><div style="width:100% "class="thread">${prayerObject.answered}</div></div>
+        <button type="button" onclick="record(${prayerObject.id})">✅</button>
+      </div>      <p>Since ${prayerObject.date}</p>
+
+`;
  
      localStorage.setItem('prayer'+id,JSON.stringify(prayerObject))
     }
@@ -215,13 +213,13 @@ border-radius: 577px;
       document.querySelector('.ud').style.display = 'flex'
      var prayerObj = JSON.parse(localStorage.getItem('prayer'+id))
      document.querySelector('.ud #new-title').value = prayerObj.name
-     document.querySelector('.ud #new-frequency').value = prayerObj.frequency
+     document.querySelector('.ud #new-frequency').value = prayerObj.description
      document.querySelector('.ud button.save').setAttribute('onclick',`updateprayer(${id})`)
     }
     function updateprayer(id){
       var prayerObj = JSON.parse(localStorage.getItem('prayer'+id))
       prayerObj.name = document.querySelector('.ud #new-title').value;
-      prayerObj.frequency = document.querySelector('.ud #new-frequency').value;
+      prayerObj.description = document.querySelector('.ud #new-frequency').value;
 
       localStorage.setItem('prayer'+id, JSON.stringify(prayerObj))
       
@@ -230,14 +228,14 @@ border-radius: 577px;
     //prayerObject.progress += 1;
      //var thread = tbr.querySelector('.thread')
     // thread.innerText = ob.progress
-     tbr.innerHTML = `   
-      <h2><span>${prayerObject.name}</span> <c><i onclick="dialog(${prayerObject.id})">Delete</i><i class="edit" onclick="sUD(${prayerObject.id})">Edit</i></c></h2>
-      <p class="details"><span>Frequency: ${prayerObject.frequency}</span><span>Period: ${prayerObject.period}</span></p>
+     tbr.innerHTML = `
+      <h2><span>${prayerObject.name}</span><c><i onclick="dialog(${prayerObject.id})">Delete</i><i class="edit" onclick="sUD(${prayerObject.id})">Edit</i></c></h2>
+      <p class="details">
+      ${prayerObject.description}</p>
       <div class="prog">
-        <div class="thread-con"><div style="width:${100*prayerObject.progress/prayerObject.frequency+"%"}" class="thread">${prayerObject.progress}</div></div>
-        <button type="button" onclick="record(${prayerObject.id})">+</button>
-      </div>
-      <p>${100*prayerObject.progress/prayerObject.frequency}% Completed</p>`
+        <div class="thread-con"><div style="width:100% "class="thread">${prayerObject.answered}</div></div>
+        <button type="button" onclick="record(${prayerObject.id})">✅</button>
+      </div><p>Since ${prayerObject.date}</p>`;
  document.querySelector('.ud button').click()
     }
   </script>
