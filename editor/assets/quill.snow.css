@@ -39,8 +39,6 @@
   border-radius:5px;
 }
 
-document.querySelector(".ql-snow.ql-toolbar button.ql-bold svg") button.ql-bold svg.ql-stroke
-{stroke: white; background: green;}
 .ql-container.ql-disabled .ql-tooltip {
   visibility: hidden;
 }
@@ -730,7 +728,7 @@ justify-content: space-evenly;}
 .ql-snow .ql-picker.ql-expanded .ql-picker-options {
   display: block;
   margin-top: -1px;
-  top: 100%;
+  top: -440%;
   z-index: 1;
 }
 .ql-snow .ql-color-picker,

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Quill Demo</title>
+  <link rel='stylesheet' href='https://cdn.quilljs.com/1.3.3/quill.snow.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div ng-app="App" ng-controller="QuillController">
+   <div class="quill">
+    <code>
+      <span><strong>Cursor Position</strong>: {{cursorPosition}}</span>
+      <span><strong>Selected Text</strong>: {{selectedText}}<span>
+      <span><strong>Contents</strong>: {{quillContents}}</span>
+    </code>    
+     <div class="editor">
+       <button ng-click="insertMergeTag()">Insert Tag</button>
+       <div id="editor"></div>
+     </div>
+   </div>
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.10/angular.min.js'></script>
+<script src='https://cdn.quilljs.com/1.3.3/quill.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>

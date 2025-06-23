@@ -21,5 +21,23 @@
 <script>
   console.log(document.querySelector('.ql-snow.ql-toolbar'))
 </script>
+<script>
+  function loadScript(src, onSuccess, onError) {
+    var script = document.createElement('script');
+    script.src = src;
+    script.onload = onSuccess;
+    script.onerror = onError || function() {
+      console.error('Failed to load script: ' + src);
+    };
+    document.head.appendChild(script);
+  }
+
+  // Load with fallbacks
+  loadScript('assets/angular.min.js', function() {
+    loadScript('assets/quill.min.js', function() {
+      loadScript('./script.js');
+    });
+  });
+</script>
 </body>
 </html>

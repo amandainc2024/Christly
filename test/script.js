@@ -9,11 +9,14 @@
 
     const vm = $scope;
     const toolbarOptions = [
-    { 'header': [1, 2,  false] },
+    { 'font': [] },
+    { 'header': [1, 2, 3, 4, 5, 6, false] },
+    { 'align': [] },
     'bold', 'italic', 'underline',
-   
+    { 'color': [] },
+    { 'background': [] },
     { 'list': 'bullet' },
-    ];
+    'link'];
 
     const options = {
       placeholder: 'Compose an epic...',
@@ -33,10 +36,10 @@
     vm.cursorPosition = 0;
     vm.selectedText = undefined;
     vm.quillContents = undefined;
-    vm.insertBible = insertBible;
+    vm.insertMergeTag = insertMergeTag;
 
-    function insertBible() {
-      quill.clipboard.dangerouslyPasteHTML(vm.cursorPosition, '<p class="bible">bible here</p>');
+    function insertMergeTag() {
+      quill.clipboard.dangerouslyPasteHTML(vm.cursorPosition, '<p>text</p><ul><li>first bullet item</li></ul>');
     }
 
     // quill
