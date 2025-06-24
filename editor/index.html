@@ -7,9 +7,20 @@
 
 </head>
 <body>
-<!-- partial:index.partial.html -->
+
+<form action="" style="position: fixed;">
+  <input type="text" placeholder="Title"/>
+  <input type="text" placeholder="Preacher">
+  <input type="text" placeholder="Location">
+  <button type="button" onclick="this.form.style.display='none'">Next</button>
+</form>
+<header>
+  <h2>And and innovation center of building and innovation center of the select</h2>
+  <p>By Pr. David on 23/34/2009 at Church [<sp>3</sp>]</p>
+</header>
 <div ng-app="App" ng-controller="QuillController">
    <div class="quill">
+<span class="contents">{{quillContents}}</span>
      <div class="editor">
        <div id="editor"></div>
      </div>
@@ -18,9 +29,7 @@
 <!-- partial -->
   <script src='assets/angular.min.js'></script>
 <script src='assets/quill.min.js'></script><script  src="./script.js"></script>
-<script>
-  console.log(document.querySelector('.ql-snow.ql-toolbar'))
-</script>
+
 <script>
   function loadScript(src, onSuccess, onError) {
     var script = document.createElement('script');
@@ -38,6 +47,21 @@
       loadScript('./script.js');
     });
   });
+</script>
+<script>
+ function save(){
+   var i = document.querySelectorAll('form input');
+   var dateObject = new Date;
+   var t = i[0].value, p=i[1].value, l=i[2].value,d=dateObject.getDate()+'-'+(dateObject.getMonth()+1)+'-'+dateObject.getFullYear();
+   var noteObject ={
+     title:t,
+     preacher:p,
+     location:l,
+     date:d,
+     notes:document.querySelector('.contents').innerText
+   }
+   localStorage.setItem('note'+document.querySelector('sp').innerText,JSON.stringify(noteObject))
+ }
 </script>
 </body>
 </html>
