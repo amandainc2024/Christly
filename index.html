@@ -78,7 +78,6 @@ a {
 }
 iframe{
   postion:fixed;
-  display: none;
   width: 100%;
   height:100vh;
 }
@@ -241,9 +240,6 @@ iframe{
    </head>
    <body>
        <iframe src="dashboard.html" frameborder="0"></iframe>
-       <iframe src="habit.html" frameborder="0"></iframe>
-       <iframe src="prayer.html" frameborder="0"></iframe>
-       <iframe src="bible.html" frameborder="0"></iframe>
 
       <!--=============== NAVBAR ===============-->
       <nav class="nav">
@@ -337,10 +333,8 @@ for(i=0;i<4;i++){
 function r(e,id){
   document.querySelector('.nav__list > li.active').classList.remove('active');
   e.classList.add('active');
-  for(i=0;i<document.querySelectorAll('iframe').length;i++){
-    document.querySelectorAll('iframe')[i].style.display = 'none'
-  }
-  document.querySelectorAll('iframe')[id].style.display = 'block'
+  var links = ['dashboard.html','habit.html','prayer.html','bible.html']
+    document.querySelector('iframe').src=links[id]
 }
       </script>
    </body>

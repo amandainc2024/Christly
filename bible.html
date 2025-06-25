@@ -84,11 +84,45 @@
       font-size: 1.1rem;
       border-radius: 8px;
     }
+    .fav{
+      position: fixed;
+      inset: 0;
+      overflow-y: scroll;
+      display: none;
+      background: white;
+      z-index: 55;
+    }
+    .fav .item{
+      background: #ccf;
+      padding: 5px;
+      border-radius: 12px;
+      margin: 6px 0;
+    }
+    .fav .item .ref{
+      font-weight: bold;
+    }
+    p.fv{
+      font-weight: bold;
+      margin: 12px 4px;
+      position: relative;
+    }
+    p.fv span{
+      width:16px;
+      aspect-ratio: 1/1;
+      background: black;
+      color:white;
+      border-radius: 500px;
+      text-align: center;
+      position: absolute;
+      right:0;
+      padding: 1.5px;
+    }
   </style>
 </head>
 
 <body>
   <h1>Holy Bible</h1>
+  <p class="fv" onclick="document.querySelector('.fav').style.display='block'">Favourites <span id="counter"></span></p>
   <div class="books">
    
   </div>
@@ -104,9 +138,16 @@
     <main>
     </main>
   </div>
+  
+  <div class="fav">
+
+  </div>
+
+  </div>
   <script src="bible.js" type="text/javascript" charset="utf-8"></script>
   <script>
     // console.log(bible)
+    document.getElementById('counter').innerText = id()-1
    for(i=0;i<66;i++){
      document.querySelector('.books').innerHTML += `<p onclick='openChapters(this,${i})'>${bible[i].name}</p>`
    }
@@ -128,7 +169,7 @@
      document.querySelector('.verses h2').innerHTML = bible[b].name+" "+c+`<i onclick="document.querySelector('.verses').style.display = 'none'">Back</i>`;
      document.querySelector('.verses main').innerHTML =''
      for(i=1;i<=bible[b].chapters[c-1].length;i++){
-     document.querySelector('.verses main').innerHTML += `          <p onclick="favorite(${b},${c},${i})"><i>${i}</i><span>${bible[b].chapters[c-1][i-1]}</span></p>
+     document.querySelector('.verses main').innerHTML += `          <p ondblclick="favorite('${bible[b].name + " "+c+":"+i}',this)"><i>${i}</i><span>${bible[b].chapters[c-1][i-1]}</span></p>
 `}
 document.querySelector(".verses").scrollTop=0
   document.querySelector('.verses main').innerHTML += ` <button class="next" onclick="nextChapter()">Next Chapter</button>`
@@ -141,9 +182,40 @@ document.querySelector(".verses").scrollTop=0
      var next = parseInt(document.querySelector('.chapters li.active').innerText)
      document.querySelectorAll('.chapters li')[next].click()
    }
-   function favorite(b,c,v){
-     localStorage.setItem('bible',`${b},${c},${v}`)
+   function favorite(ref,v){
+     var fO = {
+       verse:v.querySelector('span').innerText,
+       ref:ref
+     }
+    localStorage.setItem('bible'+id(),JSON.stringify(fO))
+   
+   document.querySelector('.fv #counter').innerHTML = id()-1
+   readFav()
+   } 
+   function id() {
+  var count = 1;
+  for (i = 1; i <= localStorage.length; i++) {
+    if (localStorage.getItem('bible' + i)) {
+      count++
+    }
+  }
+  return count
+}
+   function readFav(){
+           var container = document.querySelector('.fav')
+      container.innerHTML = ''
+      container.innerHTML = `<h2>Favorites<i onclick="document.querySelector('.fav').style.display = 'none'">Back</i></h2>`
+      for (i = 1; i <= localStorage.length; i++) {
+        if (localStorage.getItem('bible' + i)) {
+          var favObject = JSON.parse(localStorage.getItem('bible' + i));
+          var template = ` <div class="item">
+    <p>${favObject.verse}</p>
+    <p class="ref">${favObject.ref}</p>`;
+          container.innerHTML += template
+        }
+      }
    }
+   readFav()
   </script>
   
 </body>
