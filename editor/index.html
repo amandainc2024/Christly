@@ -50,16 +50,16 @@
   });
 </script>
 <script>
-document.addEventListener('load', function (){
-  
-})
+var iparam = location.search.substring(location.search.indexOf('=')+1)
+var e = document.querySelector('.quill .editor #editor .ql-editor')
+
 function v(j){
      var i = document.querySelectorAll('form input');
      var t = i[0].value.length > 1, p=i[1].value.length > 1, l=i[2].value.length > 1
      
      if(t && l && p){
          j.form.style.display='none';
-          setInterval(save,1000)
+          //setInterval(save,1000)
 
      }else{
         document.querySelector('form p').innerText='invalid inputs';
