@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Last 30 Days</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .date-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .date-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            min-width: 100px;
+            text-align: center;
+        }
+        .day {
+            font-weight: bold;
+            font-size:2rem;
+        }
+        .date {
+            color: #333;
+            font-style: capitali;
+        }
+        .month {
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Last 30 Days</h1>
+    <div class="date-container" id="dates-container"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('dates-container');
+            const today = new Date();
+            
+            for (let i = 29; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(today.getDate() - i);
+                
+                const day = date.toLocaleDateString('en-US', { weekday: 'short' });
+                const dateNum = date.getDate();
+                const month = date.toLocaleDateString('en-US', { month: 'short' });
+                
+                const dateBox = document.createElement('div');
+                dateBox.className = 'date-box';
+                dateBox.innerHTML = `
+                    <div class="day">${day}</div>
+                    <div class="date">${dateNum} ${month}</div>
+                `;
+                
+                container.appendChild(dateBox);
+            }
+        });
+    </script>
+</body>
+</html>

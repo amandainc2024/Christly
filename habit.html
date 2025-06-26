@@ -107,6 +107,37 @@ border-radius: 577px;
       padding-inline: 14px;
       margin-inline: 5px;
     }
+    
+      .date-container {
+            display: flex;
+            width: 100%;
+            overflow-x: scroll;
+            gap: 10px;
+            flex-direction: row;
+        }
+        .date-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            min-width: 100px;
+            text-align: center;
+        }
+        .date-box.active{
+                      border: 1px solid #f00;
+                      background: #fcc;
+        }
+        .day {
+            font-weight: bold;
+            font-size:2rem;
+        }
+        .date {
+            color: #333;
+            text-decoration: capitalize;
+        }
+        .month {
+            color: #666;
+            font-size: 0.9em;
+        }
   </style>
 </head>
 <body>
@@ -121,10 +152,7 @@ border-radius: 577px;
     <input id="frequency" type="number">
     <button type="button" class="fbtn" onclick="add()">Add</button>
   </form>
-  <ul>
-    <li></li>
-    <li></li>
-  </ul>
+    <div class="date-container" id="dates-container"></div>
   <main>
     <!--Tab to edit-->
   </main>
@@ -144,7 +172,10 @@ border-radius: 577px;
     <button type="button" class="fbtn save" onclick="updateHabit()">Save Changes</button></div>
   </div>
   <script>
-  var today = new Date().getFullYear()+"-"+(new Date().getMonth()+1)+"-"+(new Date().getDate()+2)
+  const today = () =>{
+    var c = new Date().getFullYear()+"-"+(new Date().getMonth()+1)+"-"+(new Date().getDate())
+    return c
+  }
   function id() {
   var count = 1;
   for (i = 1; i <= localStorage.length; i++) {
@@ -165,7 +196,7 @@ border-radius: 577px;
         progress:{},
         alive:true
       }
-      hbt.progress[today]=0
+      hbt.progress[today()]=0
       localStorage.setItem('habit'+id(),JSON.stringify(hbt))
       read()
     }
@@ -176,8 +207,8 @@ border-radius: 577px;
       for (i = 1; i <= localStorage.length; i++) {
         if (localStorage.getItem('habit' + i)) {
           var habitObject = JSON.parse(localStorage.getItem('habit' + i));
-          if(!habitObject.progress[today]){
-        habitObject.progress[today]=0;
+          if(!habitObject.progress[today()]){
+        habitObject.progress[today()]=0;
         localStorage.setItem('habit'+i,JSON.stringify(habitObject))
       }
       habitObject = JSON.parse(localStorage.getItem('habit' + i));
@@ -185,10 +216,10 @@ border-radius: 577px;
       <h2><span>${habitObject.name}</span><c><i onclick="dialog(${habitObject.id})">Delete</i><i class="edit" onclick="sUD(${habitObject.id})">Edit</i></c></h2>
       <p class="details"><span>Frequency: ${habitObject.frequency}</span><span>Period: ${habitObject.period}</span></p>
       <div class="prog">
-        <div class="thread-con"><div style="width:${100*habitObject.progress[today]/habitObject.frequency+"%"}" class="thread">${habitObject.progress[today]}</div></div>
+        <div class="thread-con"><div style="width:${100*habitObject.progress[today()]/habitObject.frequency+"%"}" class="thread">${habitObject.progress[today()]}</div></div>
         <button type="button" onclick="record(${habitObject.id})">+</button>
       </div>
-      <p>${100*habitObject.progress[today]/habitObject.frequency}% Completed</p>
+      <p>${100*habitObject.progress[today()]/habitObject.frequency}% Completed</p>
     </div>`;
             console.log(localStorage.getItem('habit' + i).alive)
       if (habitObject.alive) {
@@ -197,21 +228,22 @@ border-radius: 577px;
       }
      }
     }
+    
     read()
     function record(id){
       var habitObject = JSON.parse(localStorage.getItem('habit'+id));
      var tbr = document.querySelector('.habit'+id)
-    habitObject.progress[today] += 1;
+    habitObject.progress[today()] += 1;
      //var thread = tbr.querySelector('.thread')
     // thread.innerText = ob.progress
      tbr.innerHTML = `   
       <h2><span>${habitObject.name}</span> <c><i onclick="dialog(${habitObject.id})">Delete</i><i class="edit" onclick="sUD(${habitObject.id})">Edit</i></c></h2>
       <p class="details"><span>Frequency: ${habitObject.frequency}</span><span>Period: ${habitObject.period}</span></p>
       <div class="prog">
-        <div class="thread-con"><div style="width:${100*habitObject.progress[today]/habitObject.frequency+"%"}" class="thread">${habitObject.progress[today]}</div></div>
+        <div class="thread-con"><div style="width:${100*habitObject.progress[today()]/habitObject.frequency+"%"}" class="thread">${habitObject.progress[today()]}</div></div>
         <button type="button" onclick="record(${habitObject.id})">+</button>
       </div>
-      <p>${100*habitObject.progress[today]/habitObject.frequency}% Completed</p>`
+      <p>${100*habitObject.progress[today()]/habitObject.frequency}% Completed</p>`
  
      localStorage.setItem('habit'+id,JSON.stringify(habitObject))
     }
@@ -248,12 +280,42 @@ border-radius: 577px;
       <h2><span>${habitObject.name}</span> <c><i onclick="dialog(${habitObject.id})">Delete</i><i class="edit" onclick="sUD(${habitObject.id})">Edit</i></c></h2>
       <p class="details"><span>Frequency: ${habitObject.frequency}</span><span>Period: ${habitObject.period}</span></p>
       <div class="prog">
-        <div class="thread-con"><div style="width:${100*habitObject.progress[today]/habitObject.frequency+"%"}" class="thread">${habitObject.progress[today]}</div></div>
+        <div class="thread-con"><div style="width:${100*habitObject.progress[today()]/habitObject.frequency+"%"}" class="thread">${habitObject.progress[today()]}</div></div>
         <button type="button" onclick="record(${habitObject.id})">+</button>
       </div>
-      <p>${100*habitObject.progress[today]/habitObject.frequency}% Completed</p>`
+      <p>${100*habitObject.progress[today()]/habitObject.frequency}% Completed</p>`
  document.querySelector('.ud button').click()
     }
+    document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('dates-container');
+            const today = new Date();
+            
+            for (let i = 29; i >= 0; i--) {
+              function active(){
+                if(i==0){
+                  return 'active'
+                }else{
+                  return ''
+                }
+              }
+                const date = new Date();
+                date.setDate(today.getDate() - i);
+                
+                const day = date.toLocaleDateString('en-US', { weekday: 'short' });
+                const dateNum = date.getDate();
+                const month = date.toLocaleDateString('en-US', { month: 'short' });
+                
+                const dateBox = document.createElement('div');
+                
+                dateBox.className = `date-box ${active()}`;
+                dateBox.innerHTML = `
+                    <div class="day">${day}</div>
+                    <div class="date">${dateNum} ${month.toUpperCase()}</div>
+                `;
+                
+                container.appendChild(dateBox);
+            }
+        });
   </script>
 </body>
 
