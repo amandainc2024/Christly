@@ -173,13 +173,15 @@ border-radius: 577px;
     <button type="button" class="fbtn save" onclick="updateHabit()">Save Changes</button></div>
   </div>
   <script>
-  const today = () =>{
-    if(location.search.slice(3,162).length<3){
-      return location.search
-    }
-    var c = new Date().getFullYear()+"-"+(new Date().getMonth()+1)+"-"+(new Date().getDate())
-    return c
-  }
+function today() {
+  const params = new URLSearchParams(window.location.search);
+  const d = params.get("d");
+  if (d) return d;
+
+  const now = new Date();
+  return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+}
+
   function id() {
   var count = 1;
   for (i = 1; i <= localStorage.length; i++) {
