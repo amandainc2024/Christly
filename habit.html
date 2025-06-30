@@ -113,7 +113,8 @@ border-radius: 577px;
             width: 100%;
             overflow-x: scroll;
             gap: 10px;
-            flex-direction: row;
+            padding: 0 16px;
+            flex-direction: row-reverse;
         }
         .date-box {
             border: 1px solid #ddd;
@@ -173,6 +174,9 @@ border-radius: 577px;
   </div>
   <script>
   const today = () =>{
+    if(location.search.slice(3,162).length<3){
+      return location.search
+    }
     var c = new Date().getFullYear()+"-"+(new Date().getMonth()+1)+"-"+(new Date().getDate())
     return c
   }
@@ -286,36 +290,42 @@ border-radius: 577px;
       <p>${100*habitObject.progress[today()]/habitObject.frequency}% Completed</p>`
  document.querySelector('.ud button').click()
     }
-    document.addEventListener('DOMContentLoaded', function() {
-            const container = document.getElementById('dates-container');
-            const today = new Date();
-            
-            for (let i = 29; i >= 0; i--) {
-              function active(){
-                if(i==0){
-                  return 'active'
-                }else{
-                  return ''
-                }
-              }
-                const date = new Date();
-                date.setDate(today.getDate() - i);
-                
-                const day = date.toLocaleDateString('en-US', { weekday: 'short' });
-                const dateNum = date.getDate();
-                const month = date.toLocaleDateString('en-US', { month: 'short' });
-                
-                const dateBox = document.createElement('div');
-                
-                dateBox.className = `date-box ${active()}`;
-                dateBox.innerHTML = `
-                    <div class="day">${day}</div>
-                    <div class="date">${dateNum} ${month.toUpperCase()}</div>
-                `;
-                
-                container.appendChild(dateBox);
-            }
-        });
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('dates-container');
+    const today = new Date();
+const wtoday = () => {
+  if (location.search.slice(3, 162).length < 3) {
+    return location.search.slice(3, 162)
+  }
+  var c = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + (new Date().getDate())
+  return c
+}
+    for (let i = 29; i >= 0; i--) {
+        const date = new Date();
+        date.setDate(today.getDate() - i);
+
+        const day = date.toLocaleDateString('en-US', { weekday: 'short' });
+        const dateNum = date.getDate();
+        const month = date.toLocaleDateString('en-US', { month: 'short' });
+
+        // Format f as "YYYY-M-D"
+        const f = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+        const isToday = wtoday() == f ? 'active' : '';
+
+const dateBox = document.createElement('div');
+dateBox.className = `date-box ${isToday}`;
+dateBox.setAttribute('onclick', 'window.location.href="habit.html?d=' + f + '"');
+
+        dateBox.innerHTML = `
+            <div class="day">${day}</div>
+            <div class="date">${dateNum} ${month.toUpperCase()}</div>
+        `;
+
+        container.appendChild(dateBox);
+    }
+    container.scrollLeft = -1*container.scrollWidth
+});
+
   </script>
 </body>
 
